@@ -62,14 +62,14 @@ export class Together {
 
     }
 
-    getElementByStateProp(stateProp) {
+    getElementsByStateProp(stateProp) {
         return this.parentNode.querySelectorAll(
             `[data-${this.attribute}='${stateProp}']`
         );
     }
     
     set(stateProp, text) {
-        const els = this.getElementByStateProp(stateProp);
+        const els = this.getElementsByStateProp(stateProp);
         requestAnimationFrame(() => {
             for (let i = 0; i < els.length; i++) {
                 let el = els[i];
@@ -80,14 +80,14 @@ export class Together {
     }
 
     get(stateProp) {
-        const els = this.getElementByStateProp(stateProp);
+        const els = this.getElementsByStateProp(stateProp);
         if (els.length) {
             return this.state.get(els[0]) || "";
         }
     }
 
     delete(stateProp) {
-        const els = this.getElementByStateProp(stateProp);
+        const els = this.getElementsByStateProp(stateProp);
         requestAnimationFrame(() => {
             for (let i = 0; i < els.length; i++) {
                 let el = els[i];

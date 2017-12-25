@@ -172,8 +172,8 @@ var Together = exports.Together = function () {
             }
         }
     }, {
-        key: 'getElementByStateProp',
-        value: function getElementByStateProp(stateProp) {
+        key: 'getElementsByStateProp',
+        value: function getElementsByStateProp(stateProp) {
             return this.parentNode.querySelectorAll('[data-' + this.attribute + '=\'' + stateProp + '\']');
         }
     }, {
@@ -181,7 +181,7 @@ var Together = exports.Together = function () {
         value: function set(stateProp, text) {
             var _this = this;
 
-            var els = this.getElementByStateProp(stateProp);
+            var els = this.getElementsByStateProp(stateProp);
             requestAnimationFrame(function () {
                 for (var i = 0; i < els.length; i++) {
                     var _el3 = els[i];
@@ -193,7 +193,7 @@ var Together = exports.Together = function () {
     }, {
         key: 'get',
         value: function get(stateProp) {
-            var els = this.getElementByStateProp(stateProp);
+            var els = this.getElementsByStateProp(stateProp);
             if (els.length) {
                 return this.state.get(els[0]) || "";
             }
@@ -203,7 +203,7 @@ var Together = exports.Together = function () {
         value: function _delete(stateProp) {
             var _this2 = this;
 
-            var els = this.getElementByStateProp(stateProp);
+            var els = this.getElementsByStateProp(stateProp);
             requestAnimationFrame(function () {
                 for (var i = 0; i < els.length; i++) {
                     var _el4 = els[i];
