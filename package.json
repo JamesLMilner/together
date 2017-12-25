@@ -1,16 +1,16 @@
 {
   "name": "together",
   "version": "1.0.0",
-  "description": "A data binding library",
+  "description": "A one way data binding library",
   "main": "together.js",
   "scripts": {
     "test": "",
-    "bundle": "webpack --env.minified",
+    "bundle": "webpack && webpack --env.minified && cp ./dist/together.js ./docs/together.js",
     "watch": "webpack --watch"
   },
   "keywords": [
     "data",
-    "bindinging"
+    "binding"
   ],
   "author": "James Milner",
   "license": "MIT",
