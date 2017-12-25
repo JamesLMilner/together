@@ -96,14 +96,11 @@ var Together = exports.Together = function () {
         this.attribute = attribute || "bind";
         this.state = new WeakMap();
 
-        var selector = '[data-' + this.attribute + '="*"]';
-        var els = parentNode.querySelectorAll(selector);
-        if (els) {
-            for (var i = 0; i < els.length; i++) {
-                var el = els[i];
-                this.state.set(el, el.textContent);
-            };
-        }
+        var els = parentNode.querySelectorAll('[data-' + this.attribute + '="*"]');
+
+        for (var i = 0; i < els.length; i++) {
+            this.state.set(els[i], el.textContent);
+        };
 
         this.observer = new MutationObserver(this.observeDOM.bind(this));
         this.observer.observe(parentNode, {
@@ -134,9 +131,9 @@ var Together = exports.Together = function () {
                     switch (mutation.type) {
                         case 'childList':
                             for (var i = 0; i < mutation.removedNodes.length; i++) {
-                                var el = mutation.addedNodes[i];
-                                if (el.getAttribute !== undefined) {
-                                    var stateProp = el.getAttribute(this.attr());
+                                var _el = mutation.addedNodes[i];
+                                if (_el && _el.getAttribute !== undefined) {
+                                    var stateProp = _el.getAttribute(this.attr());
                                     if (stateProp) {
                                         this.delete(stateProp);
                                     }
@@ -144,11 +141,11 @@ var Together = exports.Together = function () {
                             }
 
                             for (var j = 0; j < mutation.addedNodes.length; j++) {
-                                var _el = mutation.addedNodes[j];
-                                if (_el.getAttribute !== undefined) {
-                                    var _stateProp = _el.getAttribute(this.attr());
+                                var _el2 = mutation.addedNodes[j];
+                                if (_el2 && _el2.getAttribute !== undefined) {
+                                    var _stateProp = _el2.getAttribute(this.attr());
                                     if (_stateProp) {
-                                        this.set(_stateProp, _el.textContent);
+                                        this.set(_stateProp, _el2.textContent);
                                     }
                                 }
                             }
@@ -187,9 +184,9 @@ var Together = exports.Together = function () {
             var els = this.getElementByStateProp(stateProp);
             requestAnimationFrame(function () {
                 for (var i = 0; i < els.length; i++) {
-                    var el = els[i];
-                    _this.state.set(el, text);
-                    el.textContent = text;
+                    var _el3 = els[i];
+                    _this.state.set(_el3, text);
+                    _el3.textContent = text;
                 }
             });
         }
@@ -209,9 +206,9 @@ var Together = exports.Together = function () {
             var els = this.getElementByStateProp(stateProp);
             requestAnimationFrame(function () {
                 for (var i = 0; i < els.length; i++) {
-                    var el = els[i];
-                    _this2.state.delete(el);
-                    el.remove();
+                    var _el4 = els[i];
+                    _this2.state.delete(_el4);
+                    _el4.remove();
                 }
             });
         }

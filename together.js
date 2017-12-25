@@ -35,7 +35,7 @@ export class Together {
                 case 'childList':
                     for (let i = 0; i < mutation.removedNodes.length; i++) {
                         const el = mutation.addedNodes[i];
-                        if (el.getAttribute !== undefined) {
+                        if (el && el.getAttribute !== undefined) {
                             const stateProp = el.getAttribute(this.attr());
                             if (stateProp) {
                                 this.delete(stateProp);
@@ -45,7 +45,7 @@ export class Together {
 
                     for (let j = 0; j < mutation.addedNodes.length; j++) {
                         const el = mutation.addedNodes[j];
-                        if (el.getAttribute !== undefined) {
+                        if (el && el.getAttribute !== undefined) {
                             const stateProp = el.getAttribute(this.attr());
                             if (stateProp) {
                                 this.set(stateProp, el.textContent);

@@ -1,5 +1,7 @@
 const bind = new Together(document.body, "bind");
 
+const christmas = ["Reindeer", "Santa", "Pudding", "Snowman", "Elf", "Christmas Tree", "Snowball", "Turkey"]
+
 const one = document.getElementById("random-one");
 for (let i = 0; i < 100; i++) {
 	const el = document.createElement("div");
@@ -21,15 +23,14 @@ for (let i = 0; i < 100; i++) {
 	bind.upgrade(el, "random-three");
 }
 
-const christmas = ["Reindeer", "Santa", "Pudding", "Snowman", "Elf", "Christmas Tree", "Snowball", "Turkey"]
 setInterval(() => {
 	bind.set("random-one", christmas[Math.floor(Math.random()*christmas.length)]);
-}, 1000);
+}, 800);
 
 setInterval(() => {
 	bind.set("random-two", christmas[Math.floor(Math.random()*christmas.length)]);
-}, 1500);
+}, 600);
 
 setInterval(() => {
 	bind.set("random-three", christmas[Math.floor(Math.random()*christmas.length)]);
-}, 2000);
+}, 1200);
