@@ -95,7 +95,7 @@ var Together = exports.Together = function () {
         _classCallCheck(this, Together);
 
         this.parentNode = parentNode;
-        this.attribute = attribute;
+        this.attribute = attribute || "bind";
         this.state = new WeakMap();
 
         var selector = '[data-' + this.attribute + '="*"]';
@@ -175,8 +175,8 @@ var Together = exports.Together = function () {
             }
         }
     }, {
-        key: 'getElementByDOMState',
-        value: function getElementByDOMState(stateProp) {
+        key: 'getElementByStateProp',
+        value: function getElementByStateProp(stateProp) {
             return this.parentNode.querySelectorAll('[data-' + this.attribute + '=\'' + stateProp + '\']');
         }
     }, {
@@ -184,7 +184,7 @@ var Together = exports.Together = function () {
         value: function set(stateProp, text) {
             var _this3 = this;
 
-            var els = this.getElementByDOMState(stateProp);
+            var els = this.getElementByStateProp(stateProp);
             if (els.length) {
                 requestAnimationFrame(function () {
                     els.forEach(function (el) {
@@ -197,7 +197,7 @@ var Together = exports.Together = function () {
     }, {
         key: 'get',
         value: function get(stateProp) {
-            var els = this.getElementByDOMState(stateProp);
+            var els = this.getElementByStateProp(stateProp);
             if (els.length) {
                 return this.state.get(els[0]) || "";
             }
@@ -207,7 +207,7 @@ var Together = exports.Together = function () {
         value: function _delete(stateProp) {
             var _this4 = this;
 
-            var els = this.getElementByDOMState(stateProp);
+            var els = this.getElementByStateProp(stateProp);
             if (els.length) {
                 requestAnimationFrame(function () {
                     els.forEach(function (el) {
@@ -216,6 +216,11 @@ var Together = exports.Together = function () {
                     });
                 });
             }
+        }
+    }, {
+        key: 'downgrade',
+        value: function downgrade(el) {
+            el.removeAttribute(this.attr());
         }
     }, {
         key: 'upgrade',

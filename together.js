@@ -59,14 +59,14 @@ export class Together {
 
     }
 
-    getElementByDOMState(stateProp) {
+    getElementByStateProp(stateProp) {
         return this.parentNode.querySelectorAll(
             `[data-${this.attribute}='${stateProp}']`
         );
     }
     
     set(stateProp, text) {
-        const els = this.getElementByDOMState(stateProp);
+        const els = this.getElementByStateProp(stateProp);
         if (els.length) {
             requestAnimationFrame(() => {
                 els.forEach((el) => {   
@@ -78,14 +78,14 @@ export class Together {
     }
 
     get(stateProp) {
-        const els = this.getElementByDOMState(stateProp);
+        const els = this.getElementByStateProp(stateProp);
         if (els.length) {
             return this.state.get(els[0]) || "";
         }
     }
 
     delete(stateProp) {
-        const els = this.getElementByDOMState(stateProp);
+        const els = this.getElementByStateProp(stateProp);
         if (els.length) {
             requestAnimationFrame(() => {
                 els.forEach((el) => {
@@ -94,6 +94,10 @@ export class Together {
                 });
             });
         }
+    }
+
+    downgrade(el) {
+        el.removeAttribute(this.attr());
     }
 
     upgrade(el, stateProp) {

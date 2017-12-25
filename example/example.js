@@ -1,6 +1,6 @@
 const bind = new Together(document.body, "bind");
 
-const one = document.getElementById("random-one")
+const one = document.getElementById("random-one");
 for (let i = 0; i < 100; i++) {
 	const el = document.createElement("div");
 	one.appendChild(el);
