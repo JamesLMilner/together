@@ -1,0 +1,25 @@
+{
+  "name": "together",
+  "version": "1.0.0",
+  "description": "A data binding library",
+  "main": "together.js",
+  "scripts": {
+    "test": "",
+    "bundle": "webpack --env.minified",
+    "watch": "webpack --watch"
+  },
+  "keywords": [
+    "data",
+    "bindinging"
+  ],
+  "author": "James Milner",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "eslint-plugin-import": "^2.8.0",
+    "uglifyjs-webpack-plugin": "^1.1.4",
+    "webpack": "^3.10.0"
+  }
+}

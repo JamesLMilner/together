@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            html body {
+                font-family: sans-serif;
+                background: #e64949;
+            }
+            #container {
+                display: flex;
+            }
+            #container div {
+                padding: 10px;
+            }
+            #container .col {
+                width: 33%;
+                text-align: center;
+                font-size: 2rem;
+                color: white;
+            }
+            .col div:nth-child(2n) {
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="col" id="random-one"></div>
+            <div class="col" id="random-two"></div>
+            <div class="col" id="random-three"></div>
+        </div>
+        <script src="./../dist/together.js"></script>
+        <script src="./example.js"></script>
+    </body>
+</html>
