@@ -90,8 +90,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Together = exports.Together = function () {
     function Together(parentNode, attribute, subtree) {
-        var _this = this;
-
         _classCallCheck(this, Together);
 
         this.parentNode = parentNode;
@@ -99,11 +97,12 @@ var Together = exports.Together = function () {
         this.state = new WeakMap();
 
         var selector = '[data-' + this.attribute + '="*"]';
-        var els = parentNode.querySelector(selector);
+        var els = parentNode.querySelectorAll(selector);
         if (els) {
-            els.forEach(function (el) {
-                _this.state.set(el, el.textContent);
-            });
+            for (var i = 0; i < els.length; i++) {
+                var el = els[i];
+                this.state.set(el, el.textContent);
+            };
         }
 
         this.observer = new MutationObserver(this.observeDOM.bind(this));
@@ -123,8 +122,6 @@ var Together = exports.Together = function () {
     }, {
         key: 'observeDOM',
         value: function observeDOM(mutationsList) {
-            var _this2 = this;
-
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
@@ -136,23 +133,26 @@ var Together = exports.Together = function () {
 
                     switch (mutation.type) {
                         case 'childList':
-                            mutation.removedNodes.forEach(function (el, i, obj) {
+                            for (var i = 0; i < mutation.removedNodes.length; i++) {
+                                var el = mutation.addedNodes[i];
                                 if (el.getAttribute !== undefined) {
-                                    var stateProp = el.getAttribute(_this2.attr());
+                                    var stateProp = el.getAttribute(this.attr());
                                     if (stateProp) {
-                                        _this2.delete(stateProp);
+                                        this.delete(stateProp);
                                     }
                                 }
-                            });
+                            }
 
-                            mutation.addedNodes.forEach(function (el, i, obj) {
-                                if (el.getAttribute !== undefined) {
-                                    var stateProp = el.getAttribute(_this2.attr());
-                                    if (stateProp) {
-                                        _this2.set(stateProp, el.textContent);
+                            for (var j = 0; j < mutation.addedNodes.length; j++) {
+                                var _el = mutation.addedNodes[j];
+                                if (_el.getAttribute !== undefined) {
+                                    var _stateProp = _el.getAttribute(this.attr());
+                                    if (_stateProp) {
+                                        this.set(_stateProp, _el.textContent);
                                     }
                                 }
-                            });
+                            }
+
                             break;
                         case 'attributes':
                             var stateVar = mutation.target.getAttribute(this.attr());
@@ -182,17 +182,16 @@ var Together = exports.Together = function () {
     }, {
         key: 'set',
         value: function set(stateProp, text) {
-            var _this3 = this;
+            var _this = this;
 
             var els = this.getElementByStateProp(stateProp);
-            if (els.length) {
-                requestAnimationFrame(function () {
-                    els.forEach(function (el) {
-                        _this3.state.set(el, text);
-                        el.textContent = text;
-                    });
-                });
-            }
+            requestAnimationFrame(function () {
+                for (var i = 0; i < els.length; i++) {
+                    var el = els[i];
+                    _this.state.set(el, text);
+                    el.textContent = text;
+                }
+            });
         }
     }, {
         key: 'get',
@@ -205,17 +204,16 @@ var Together = exports.Together = function () {
     }, {
         key: 'delete',
         value: function _delete(stateProp) {
-            var _this4 = this;
+            var _this2 = this;
 
             var els = this.getElementByStateProp(stateProp);
-            if (els.length) {
-                requestAnimationFrame(function () {
-                    els.forEach(function (el) {
-                        _this4.state.delete(el);
-                        el.remove();
-                    });
-                });
-            }
+            requestAnimationFrame(function () {
+                for (var i = 0; i < els.length; i++) {
+                    var el = els[i];
+                    _this2.state.delete(el);
+                    el.remove();
+                }
+            });
         }
     }, {
         key: 'downgrade',

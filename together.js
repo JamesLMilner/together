@@ -6,13 +6,13 @@ export class Together {
         this.attribute = attribute || "bind";
         this.state = new WeakMap();
 
-        const selector = `[data-${this.attribute}="*"]`;
-        const els = parentNode.querySelector(selector);
-        if (els) {
-            els.forEach((el) => {
-                this.state.set(el, el.textContent);
-            });
-        }
+        const els = parentNode.querySelectorAll(
+            `[data-${this.attribute}="*"]`
+        );
+
+        for (let i = 0; i < els.length; i++) {
+            this.state.set(els[i], el.textContent);
+        };
 
         this.observer = new MutationObserver(this.observeDOM.bind(this));
         this.observer.observe(parentNode, { 
@@ -29,27 +29,30 @@ export class Together {
     }
 
     observeDOM(mutationsList) {
-        
+
         for (let mutation of mutationsList) {
             switch (mutation.type) {
                 case 'childList':
-                    mutation.removedNodes.forEach((el, i, obj) => {
+                    for (let i = 0; i < mutation.removedNodes.length; i++) {
+                        const el = mutation.addedNodes[i];
                         if (el.getAttribute !== undefined) {
                             const stateProp = el.getAttribute(this.attr());
                             if (stateProp) {
                                 this.delete(stateProp);
                             }
                         }
-                    });
+                    }
 
-                    mutation.addedNodes.forEach((el, i, obj) => { 
+                    for (let j = 0; j < mutation.addedNodes.length; j++) {
+                        const el = mutation.addedNodes[j];
                         if (el.getAttribute !== undefined) {
                             const stateProp = el.getAttribute(this.attr());
                             if (stateProp) {
                                 this.set(stateProp, el.textContent);
                             }
                         } 
-                    });
+                    }
+
                     break;
                 case 'attributes':
                     const stateVar = mutation.target.getAttribute(this.attr());
@@ -67,14 +70,13 @@ export class Together {
     
     set(stateProp, text) {
         const els = this.getElementByStateProp(stateProp);
-        if (els.length) {
-            requestAnimationFrame(() => {
-                els.forEach((el) => {   
-                    this.state.set(el, text);
-                    el.textContent = text;
-                });
-            });
-        }
+        requestAnimationFrame(() => {
+            for (let i = 0; i < els.length; i++) {
+                let el = els[i];
+                this.state.set(el, text);
+                el.textContent = text;
+            }
+        });
     }
 
     get(stateProp) {
@@ -86,14 +88,14 @@ export class Together {
 
     delete(stateProp) {
         const els = this.getElementByStateProp(stateProp);
-        if (els.length) {
-            requestAnimationFrame(() => {
-                els.forEach((el) => {
-                    this.state.delete(el);
-                    el.remove();
-                });
-            });
-        }
+        requestAnimationFrame(() => {
+            for (let i = 0; i < els.length; i++) {
+                let el = els[i];
+                this.state.delete(el);
+                el.remove();
+            }
+        });
+        
     }
 
     downgrade(el) {

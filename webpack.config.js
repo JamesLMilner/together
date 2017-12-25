@@ -14,6 +14,9 @@ module.exports = function(env){
 	}
 
 	var config = {
+		watchOptions: {
+			poll: true
+		},
 		context: __dirname,
 		// entry is the "main" source file we want to include/import
 		entry: `./${libName}.js`,

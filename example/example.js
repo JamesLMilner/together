@@ -7,14 +7,14 @@ for (let i = 0; i < 100; i++) {
 	bind.upgrade(el, "random-one");
 }
 
-const two = document.getElementById("random-two")
+const two = document.getElementById("random-two");
 for (let i = 0; i < 100; i++) {
 	const el = document.createElement("div");
 	two.appendChild(el);
 	bind.upgrade(el, "random-two");
 }
 
-const three = document.getElementById("random-three")
+const three = document.getElementById("random-three");
 for (let i = 0; i < 100; i++) {
 	const el = document.createElement("div");
 	three.appendChild(el);
