@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div data-bind="one">one</div>  
+        <div data-bind="two">two</div>  
+        <div data-bind="three">three</div>  
+        <div id="final"> final </div>
+        <div id="also"> not final</div>
+        <script src="./bound.js"></script>
+        <script>
+
+            const bind = new Bound(document.body, "bind");
+            bind.set("one", "Bye");
+            bind.delete("two");
+
+            const el = document.createElement("div");
+            el.setAttribute(bind.attr(), "lol");
+            el.innerText = "LOL CATS"
+            document.body.appendChild(el);
+
+            const final = document.getElementById("final");
+            const also = document.getElementById("also");
+
+            bind.upgrade(final, "final");
+            bind.upgrade(also, "final");
+            bind.set("final", "something elese");
+
+            console.log("FINAL", final);
+
+        </script>
+    </body>
+</html>
