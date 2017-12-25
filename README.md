@@ -18,13 +18,13 @@ At the moment it is very basic, only supporting updating the inner text of a nod
     const bind = new Together(document.body, "bind");
     const stateProp = "example";
 
-	const elOne = document.createElement("div");
-	document.body.appendChild(el);
-	bind.upgrade(el, stateProp);
+    const elOne = document.createElement("div");
+    document.body.appendChild(el);
+    bind.upgrade(el, stateProp);
 
     const elTwo = document.createElement("div");
     document.body.appendChild(el);
-	bind.upgrade(el, stateProp);
+    bind.upgrade(el, stateProp);
 
     bind.set(stateProp, "Some example text");
 
