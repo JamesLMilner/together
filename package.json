@@ -1,8 +1,8 @@
 {
-  "name": "together",
+  "name": "togetherjs",
   "version": "1.0.0",
   "description": "A one way data binding library",
-  "main": "together.js",
+  "main": "./dist/together.min.js",
   "scripts": {
     "test": "",
     "bundle": "webpack && webpack --env.minified && cp ./dist/together.js ./docs/together.js",
