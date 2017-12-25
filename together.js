@@ -3,7 +3,7 @@ export class Together {
     constructor(parentNode, attribute, subtree) {
 
         this.parentNode = parentNode;
-        this.attribute = attribute;
+        this.attribute = attribute || "bind";
         this.state = new WeakMap();
 
         const selector = `[data-${this.attribute}="*"]`;
