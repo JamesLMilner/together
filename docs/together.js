@@ -96,129 +96,72 @@ var Together = exports.Together = function () {
         this.attribute = attribute || "bind";
         this.state = new WeakMap();
 
-        var els = parentNode.querySelectorAll('[data-' + this.attribute + '="*"]');
+        var els = parentNode.querySelectorAll("[data-" + this.attribute + "=\"*\"]");
 
         for (var i = 0; i < els.length; i++) {
             this.state.set(els[i], el.textContent);
         };
-
-        this.observer = new MutationObserver(this.observeDOM.bind(this));
-        this.observer.observe(parentNode, {
-            attributes: true,
-            attributeFilter: ['data-' + this.attribute],
-            childList: true,
-            subtree: subtree !== false ? true : false // Required!
-        });
     }
 
     _createClass(Together, [{
-        key: 'attr',
+        key: "attr",
         value: function attr() {
-            return 'data-' + this.attribute;
+            return "data-" + this.attribute;
         }
     }, {
-        key: 'observeDOM',
-        value: function observeDOM(mutationsList) {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-
-                for (var _iterator = mutationsList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var mutation = _step.value;
-
-                    switch (mutation.type) {
-                        case 'childList':
-                            for (var i = 0; i < mutation.removedNodes.length; i++) {
-                                var _el = mutation.addedNodes[i];
-                                if (_el && _el.getAttribute !== undefined) {
-                                    var stateProp = _el.getAttribute(this.attr());
-                                    if (stateProp) {
-                                        this.delete(stateProp);
-                                    }
-                                }
-                            }
-
-                            for (var j = 0; j < mutation.addedNodes.length; j++) {
-                                var _el2 = mutation.addedNodes[j];
-                                if (_el2 && _el2.getAttribute !== undefined) {
-                                    var _stateProp = _el2.getAttribute(this.attr());
-                                    if (_stateProp) {
-                                        this.set(_stateProp, _el2.textContent);
-                                    }
-                                }
-                            }
-
-                            break;
-                        case 'attributes':
-                            var stateVar = mutation.target.getAttribute(this.attr());
-                            mutation.target.textContent = this.get(stateVar);
-                    }
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-        }
-    }, {
-        key: 'getElementsByStateProp',
+        key: "getElementsByStateProp",
         value: function getElementsByStateProp(stateProp) {
-            return this.parentNode.querySelectorAll('[data-' + this.attribute + '=\'' + stateProp + '\']');
+            return this.parentNode.querySelectorAll("[data-" + this.attribute + "='" + stateProp + "']");
         }
     }, {
-        key: 'set',
+        key: "set",
         value: function set(stateProp, text) {
             var _this = this;
 
             var els = this.getElementsByStateProp(stateProp);
             requestAnimationFrame(function () {
                 for (var i = 0; i < els.length; i++) {
-                    var _el3 = els[i];
-                    _this.state.set(_el3, text);
-                    _el3.textContent = text;
+                    var _el = els[i];
+
+                    _el.textContent = text;
+                    _this.state.set(_el, text);
                 }
             });
         }
     }, {
-        key: 'get',
+        key: "size",
+        value: function size(stateProp) {
+            return this.getElementsByStateProp(stateProp).length;
+        }
+    }, {
+        key: "get",
         value: function get(stateProp) {
             var els = this.getElementsByStateProp(stateProp);
             if (els.length) {
-                return this.state.get(els[0]) || "";
+                return this.state.get(els[0]);
             }
         }
     }, {
-        key: 'delete',
+        key: "delete",
         value: function _delete(stateProp) {
             var _this2 = this;
 
             var els = this.getElementsByStateProp(stateProp);
             requestAnimationFrame(function () {
                 for (var i = 0; i < els.length; i++) {
-                    var _el4 = els[i];
-                    _this2.state.delete(_el4);
-                    _el4.remove();
+                    var _el2 = els[i];
+                    _this2.state.delete(_el2);
+                    _el2.remove();
                 }
             });
         }
     }, {
-        key: 'downgrade',
+        key: "downgrade",
         value: function downgrade(el) {
             el.removeAttribute(this.attr());
         }
     }, {
-        key: 'upgrade',
+        key: "upgrade",
         value: function upgrade(el, stateProp) {
             el.setAttribute(this.attr(), stateProp);
         }

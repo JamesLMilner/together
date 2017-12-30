@@ -1,36 +1,41 @@
 const bind = new Together(document.body, "bind");
 
-const christmas = ["Reindeer", "Santa", "Pudding", "Snowman", "Elf", "Christmas Tree", "Snowball", "Turkey"]
+const prices = {
+	"lolcoin" : [100.12, 99.2, 99.4, 101.1, 100.2, 99.88, 99.99, 99.53],
+	"roflthereum" : [30.00, 30.19, 30.22, 30.21, 30.4, 30.5, 29.9, 29.8, 29.74],
+	"bitecoin" : [22.1, 22.0, 23.0, 21.9, 22.35, 22.34, 22.44, 22.88, 22.73, 22.12]
+};
 
-const one = document.getElementById("random-one");
-for (let i = 0; i < 100; i++) {
-	const el = document.createElement("div");
-	one.appendChild(el);
-	bind.upgrade(el, "random-one");
+function getPrice(product) {
+	return prices[product][Math.floor(Math.random()*prices[product].length)];
 }
 
-const two = document.getElementById("random-two");
-for (let i = 0; i < 100; i++) {
-	const el = document.createElement("div");
-	two.appendChild(el);
-	bind.upgrade(el, "random-two");
+function setProduct(columnId, product) {
+
+
+	const col = document.getElementById(columnId);
+	const num = 100; 
+
+	for (let i = 0; i < num; i++) {
+
+		const el = document.createElement("div");
+		col.appendChild(el);
+
+		const val = Math.floor(Math.random() * prices[product].length) + 1;
+		const price = getPrice(product);
+		const stateProp = product +  val;
+		
+		bind.upgrade(el, stateProp);
+		bind.set(stateProp, price);
+	}
+
+	setInterval(() => {
+		let val = Math.floor(Math.random() * prices[product].length) + 1;
+		bind.set(product + val, getPrice(product));
+	}, 1000 * (Math.random() + 0.5));
+
 }
 
-const three = document.getElementById("random-three");
-for (let i = 0; i < 100; i++) {
-	const el = document.createElement("div");
-	three.appendChild(el);
-	bind.upgrade(el, "random-three");
-}
-
-setInterval(() => {
-	bind.set("random-one", christmas[Math.floor(Math.random()*christmas.length)]);
-}, 800);
-
-setInterval(() => {
-	bind.set("random-two", christmas[Math.floor(Math.random()*christmas.length)]);
-}, 600);
-
-setInterval(() => {
-	bind.set("random-three", christmas[Math.floor(Math.random()*christmas.length)]);
-}, 1200);
+setProduct("roflthereum", "roflthereum");
+setProduct("lolcoin", "lolcoin");
+setProduct("bitecoin", "bitecoin");
