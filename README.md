@@ -25,8 +25,11 @@ At the moment it Together meets a very basic usecase, only supporting updating t
 
     const elTwo = document.createElement("div");
     document.body.appendChild(el);
+
+    // We use our together object to upgdate the element
     bind.upgrade(el, stateProp);
 
+    // We can set the inner text of our new elements
     bind.set(stateProp, "Some example text");
 
     // Both elements will have there inner text set to "Some example text"

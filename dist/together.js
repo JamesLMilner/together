@@ -115,7 +115,7 @@ var Together = exports.Together = function () {
         }
     }, {
         key: "set",
-        value: function set(stateProp) {
+        value: function set(stateProp, text) {
             var _this = this;
 
             var els = this.getElementsByStateProp(stateProp);
