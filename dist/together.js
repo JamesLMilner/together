@@ -115,14 +115,13 @@ var Together = exports.Together = function () {
         }
     }, {
         key: "set",
-        value: function set(stateProp, text) {
+        value: function set(stateProp) {
             var _this = this;
 
             var els = this.getElementsByStateProp(stateProp);
             requestAnimationFrame(function () {
                 for (var i = 0; i < els.length; i++) {
                     var _el = els[i];
-
                     _el.textContent = text;
                     _this.state.set(_el, text);
                 }
@@ -159,11 +158,14 @@ var Together = exports.Together = function () {
         key: "downgrade",
         value: function downgrade(el) {
             el.removeAttribute(this.attr());
+            this.state.delete(el);
         }
     }, {
         key: "upgrade",
         value: function upgrade(el, stateProp) {
             el.setAttribute(this.attr(), stateProp);
+            var text = this.get(stateProp);
+            if (text) el.textContent = text;
         }
     }]);
 

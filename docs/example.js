@@ -24,7 +24,7 @@ function setProduct(columnId, product) {
 		const val = Math.floor(Math.random() * prices[product].length) + 1;
 		const price = getPrice(product);
 		const stateProp = product +  val;
-		
+
 		bind.upgrade(el, stateProp);
 		bind.set(stateProp, price);
 	}
