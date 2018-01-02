@@ -25,7 +25,7 @@ export class Together {
         );
     }
     
-    set(stateProp) {
+    set(stateProp, text) {
         const els = this.getElementsByStateProp(stateProp);
         requestAnimationFrame(() => {
             for (let i = 0; i < els.length; i++) {
