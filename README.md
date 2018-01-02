@@ -6,9 +6,9 @@ With Together you update your JavaScript state and this updates the DOM. No Virt
 
 ## What's going on?
 
-We use HTML data attributes to mark elements we're interested in binding our state to. We then use MutationObservers to keep the JavaScript state and DOM in sync. If the state changes we can change the text content of those nodes.
+We use HTML data attributes to mark elements we're interested in binding our state to. Updating the state in forever will update all nodes marked with that attribute name.
 
-At the moment it Together meets a very basic usecase, only supporting updating the inner text of a node. It does not support inputs, or HTML attribute bindings.
+At the moment Together meets a very basic usecase, only supporting updating the inner text of a node. It does not support inputs, HTML attributes, styles etc.
 
 ## Usage
 
